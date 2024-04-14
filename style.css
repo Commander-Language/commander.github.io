@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap')
+
+* {
+    font-family: "Nanum Gothic Coding", monospace; 
+    margin: 0;
+    padding: 0;
+}
+
+li, button {
+    text-decoration: none;
+    color: #000000;
+}
+li {
+    list-style-type: none;
+}
+
+body {
+    background-color: #FFFFFF;
+}
+
+
+/*--------------- Banner ----------------- */
+.banner {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.banner > * {
+    font-size: 1.5em;
+    padding-right: 40px;
+    text-decoration: none;
+    color: #000000;
+}
+
+/*---------- Index.html Content --------- */
+.content {
+    font-family: "Oxygen", sans-serif; 
+    font-size: 1em;
+}
+
+/*-------- Bios------------*/
+.bio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.bio-text {
+    font-size: 1em;
+    max-width: 600px;
+    padding-left: 30px;
+}
+figure {
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    text-indent: 0;
+    border: thin silver solid;
+    margin: 0.5em;
+    padding: 0.5em;
+}
