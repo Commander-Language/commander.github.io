@@ -69,6 +69,13 @@ a {
 .content {
     font-family: "Oxygen", sans-serif; 
     font-size: 1em;
+    margin: 20px;
+    line-height: 30px;
+}
+.content-p {
+    max-width: 600px;
+    font-size: 1.2em; 
+    max-width: 70%;
 }
 
 /*-------- Bios------------*/
