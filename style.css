@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
 
 * {
     font-family: "Nanum Gothic Coding", monospace; 
@@ -15,22 +15,54 @@ li {
 }
 
 body {
-    background-color: #FFFFFF;
+    background-color: #324455;
+    color: #cacaca;
+    margin: 0 auto;
+    font-family: "Times New Roman", Times, serif;
+    width: 100%;
+}
+
+h1 {
+    color: white;
+}
+
+a {
+    color: lightskyblue;
 }
 
 
 /*--------------- Banner ----------------- */
 .banner {
-    margin: 10px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 .banner > * {
     font-size: 1.5em;
-    padding-right: 40px;
+    padding-right: 20px;
+    padding-left: 20px;
     text-decoration: none;
     color: #000000;
+    align-items: center;
+    display: flex;
+}
+.banner > *:hover:not(.active):not(.noHover) {
+    background-color: #98aabb;
+}
+
+.logo {
+    width: 400px;
+    margin: 10px 0;
+    display: block;
+}
+
+.active {
+    background-color: #324455;
+    color: white;
 }
 
 /*---------- Index.html Content --------- */
@@ -44,6 +76,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 .bio-text {
     font-size: 1em;
