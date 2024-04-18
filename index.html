@@ -15,7 +15,7 @@
 
         <div class="banner">
             <a href="./" class="noHover"><img src="imgs/commander_logo.png" alt="The Commander
-                     Logo" class="logo"></a>
+                Logo" class="logo"></a>
             <a href="./" class="active">About</a>
             <a href="./team.html">The Team</a>  
             <a href="./download.html">Download</a>  
@@ -24,24 +24,44 @@
 
         <div class="content">
             <h1>What is Commander?</h1>
+            <br><img src="imgs/hello_from_commander.gif"><br>
             <p class="content-p">
             Commander is powerful scripting language that helps you automate
             the command-line, manipulate data, and control your system using
             friendlier syntax than other scripting languages, like Bash or
             PowerShell. The interpreter includes a shell-like environment
             called a REPL (Read Evaluate Print Loop), Bash/PowerShell
-            transiplers, and the ability to run Commander files.<br>
-            <img src="imgs/hello_from_commander.gif"><br>
-            The language grammar itself ...
+            transiplers, and the ability to run Commander files. For debugging,
+            we included flags to the interpreter to print out the structure of the Abstract Syntax
+            Tree generated during parsing and tokens generated during
+            lexing...
+            <br><br>
             </p> 
             <h1>Compared To Similar Languages</h1>
             <p class="content-p">
-            Commander has better ...
+            One of the main reasons for the creation of this project is how
+            unintuitive scripting languages like Bash are for newcomers. Let's
+            take if statements as an example... 
+            <br><br>
             </p> 
+            <div style="display: flex; flex-direction: row; justify-content: center;">
+                <img src="imgs/if_commander.png" style="height: 250px; width: auto; padding-right: 40px;">
+                <img src="imgs/if_bash.png" style="height: 250px; width: auto; padding-left: 40px;">
+            </div> 
+            
+            <p class="content-p">
+            From line #1 you can already have problems in Bash... 
+            </p>
             <h1>Project Archeticture</h1>
             <p class="content-p">
-            Source -> ...
+            ...
             </p> 
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="imgs/pipeline1.png" style="height: auto; width: 800px;
+                padding-bottom: 40px;">
+                <img src="imgs/pipeline2.png" style="height: auto; width: 800px;
+                padding-top: 40px;">
+            </div> 
         </div>
     </body>
 </html>
