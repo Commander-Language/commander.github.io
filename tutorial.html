@@ -23,7 +23,21 @@
         </div>
 
         <div class="content">
-            [Documentation and How to Use Stuff]
+            <h1>1. Getting Started</h1>
+            <p>First, download the executable for your system from <a href="download.html">downloads</a>. Alternatively, you may compile and build it yourself by downloading the source code and compiling/building it from scratch. For this tutorial, we will assume you are using Linux and a Bash shell to run the interpreter.</p>
+            <p>The intended way to run commander is by writing the source code in a file and running that file. You do this by running the following command (or similar command):
+                <code>
+                   $ commander -f hello_world.cmdr
+                </code>
+                The file "hello_world".cmdr may look something like:
+                <code>
+                    println "Hello World!";
+                </code>
+                This is just your usual "hello world" program though, so it's not very interesting. The rest of the tutorial we will create a more interesting program that will show case some of the features of Commander, and hopefully give you an idea of it's general syntax and usage. We don't have any working syntax plugins at the moment, but if you want to have your code highlighted I would recommend setting your code editor to highlight either Rust or Javascript code since those languages have similar syntax to Commander.
+            </p>
+            <h1>2. A Basic Program: PokeDiscover</h1>
+            <p>Do you like Pokemon? Do you struggle to keep up with all the new ones? If so, you may like this program we are going to create! This program, which we call "PokeDiscover", utilizes a free <a href="https://pokeapi.co/">Pokemon API</a> online to download images and display them to the user. The idea is to go through all the Pokemon, and let the user discover any ones they didn't know about, and give them the option to save the image of the Pokemon to their computer so they can have a collection of all their favorites.</p>
+            <p>To begin, </p>
         </div>
     </body>
 </html>
