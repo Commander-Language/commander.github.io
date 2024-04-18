@@ -89,13 +89,13 @@ a {
     font-size: 1em;
     max-width: 600px;
     padding-left: 30px;
+    padding-right: 30px;
 }
 figure {
     text-align: center;
     font-style: italic;
     font-size: smaller;
     text-indent: 0;
-    border: thin silver solid;
     margin: 0.5em;
     padding: 0.5em;
 }
