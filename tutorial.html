@@ -12,12 +12,11 @@
         <title>Commander</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xt256.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
         <script>hljs.highlightAll();</script>
     </head>
     <body>
-
         <div class="banner">
             <a href="./" class="noHover"><img src="imgs/commander_logo.png" alt="The Commander
                 Logo" class="logo"></a>
@@ -38,19 +37,90 @@ $ commander -f hello_world.cmdr
                 </pre>
                 The file "hello_world.cmdr" may look something like:
                 <pre class="code">
-                    <code class="language-rust">
+                    <code class="language-typescript">
 println "Hello World!";
                     </code>
                 </pre>
-                This is just your usual "hello world" program though, so it's not very interesting. The next section of the tutorial we will create a more interesting program that will show case some of the features of Commander, and hopefully give you an idea of its general syntax and usage. We don't have any working syntax plugins at the moment, but if you want to have your code highlighted we would recommend setting your code editor to highlight either Rust or Javascript code since those languages have similar syntax to Commander.
+                This is just your usual "hello world" program though, so it's not very interesting. The next section of the tutorial we will create a more interesting program that will show case some of the features of Commander, and hopefully give you an idea of its general syntax highlighting and usage. We don't have any working syntax plugins at the moment, but if you want to have your code highlighted we would recommend setting your code editor to highlight Typescript since it is probably the most similar language in terms of syntax. In fact, if you already know some Javascript or Typescript, and also are familiar with Bash commands, picking up Commander should be pretty straight-forward.
             </p>
-            <br>
-            <h1>2. A Basic Program: PokeDiscover</h1>
-            <p>Do you like Pokemon? Do you struggle to keep up with all the new ones? If so, you may like this program we are going to create! This program, which we call "PokeDiscover", utilizes a free <a href="https://pokeapi.co/">Pokemon API</a> online to download images and display them to the user. The idea is to go through all the Pokemon, and let the user discover any ones they didn't know about, and give them the option to save the image of the Pokemon to their computer so they can have a collection of all their favorites.</p>
-            <p>To begin, </p>
-            <br>
+            <h1>2. A Basic Program: PokemonDiscover</h1>
+            <p>Do you like Pokemon? Do you struggle to keep up with all the new ones? If so, you may like this program we are going to create! This program, which we call "PokemonDiscover", utilizes a free <a href="https://pokeapi.co/">Pokemon API</a> online to download images and display them to the user. The idea is to go through all the Pokemon, and let the user discover any ones they didn't know about, and give them the option to save the image of the Pokemon to their computer so they can have a collection of all their favorites.</p>
+            <br><p>Before we begin, you will need to install a couple commands if you don't already have them (since they will be used in the program). The ones you might already have since they are sometimes pre-installed are the curl command (for making API calls), the tr command (for trimming command output), and wget (for downloading files from the internet). You will also need the jq command for parsing JSON, which may not be included in your distro by default, but you should be able to install it simply using your package manager. Similarly, you will need a program to display png images, of which there are many you can choose from. For this tutorial, we will use the feh command since it is pretty simple to install via the package manager and use, although you can also use ImageMagick's display command. These image programs will display in an outside window from the terminal however, so if you want the images display in the terminal, you may want to look for another program to use such as imgcat (although these aren't as straight-forward to set up).</p>
+            <p>To begin, let's introduce the user to the program and ask where they would like to store their pokemon:</p>
+            <pre class="code">
+                <code class="language-typescript">
+println "Welcome to PokemonDiscover!";
+directory = scan "Where do you want to store your Pokemon?: ";
+mkdir -p $directory;
+                </code>
+            </pre>
+            <p>The scan statement reads in user input with a prompt. We then call the mkdir command with the -p flag to make all the necessary directories up to the one specified if they don't already exist. Note you can use variables in commands by prefacing the variable with a $ (similar to Bash).</p>
+            <p>Next, we will create a function that will get all the Pokemon from the API. That will look something like:</p>
+            <pre class="code">
+                <code class="language-typescript">
+fn getAllPokemon(): string[] {
+	url: string = "https://pokeapi.co/api/v2/pokemon?limit=-1";
+	type command = (string, string, int);
+	response: command = `curl -s $url`;
+	output: string = response[0];
+	statusCode: int = response[2];
+	assert statusCode == 0, "Error occurred while running curl command";
+	assert output != "Not Found" && !output.startsWith("404"), "Url '$url' not found!";
+	return `echo $output | jq -r '.results[] | "\(.name) \(.url)"'`[0].split("\n");
+}
+                </code>
+            </pre>
+            <p>This creates a function named "getAllPokemon" that returns a string array of all the Pokemon info. In this function we specify the types of the variables and the return type of the function explicitly, but it is completely optional to specify types. Specifying types will sometimes allow the type checker to be more strict in ensuring types are consistent throughout the program, so including them can be beneficial, but the rest of the tutorial we will not specify times to keep the code a little more simpler. To explain what the function does, let's walk through it line by line:</p>
+            <ol>
+                <li>The first line stores the url string into a variable called "url". We specify the type here to be a string.</li>
+                <li>This line specifies a new type called "command" which is a tuple containing two strings and an integer. Tuples are made using parentheses and can store multiple types unlike arrays which are made using square brackets and only store one type. This is the type returned when doing command substitution, which is done in the next line, but I explicitly define it here to make it obvious what we are doing.</li>
+                <li>This line stores the result of running the "curl -s $url" command that hits the API and returns the Pokemon data. The tuple returned contains the standard output, the standard error output, and the exit status code of the command, in that order. We don't care about the standard error, but we do care about the standard output and status code, so we store those into variables in the next two lines.</li>
+                <li>This line stores the standard output of the previous command into a variable named output.</li>
+                <li>This line stores the status code of the previous command into a variable named status.</li>
+                <li>This line uses an assertion to ensure that the status code of the curl command is 0 (i.e. success). If it isn't 0, it will display the error message provided and the program will terminate.</li>
+                <li>This line also uses an assertion, this time to ensure that the curl command was able to successfully hit the url endpoint, and that it didn't return an HTTP 404 error. If it wasn't found, the error message is displayed.</li>
+                <li>The last line returns the Pokemon JSON data objects as an array of strings. The command itself is a little complicated, but essentially it is running the jq command, piping in the output we previously got into it, and listing out all the name and ids of each Pokemon. Each name and id is on it's own line, so we split the standard output by new line characters to get the array of strings with each string representing the name/id pair of the Pokemon.</li>
+            </ol>
+            <p>Now we want to go through each Pokemon and display them to the user so they can decide whether to keep them or not. We will create the loop first, and put everything else into a helper method after:</p>
+            <pre class="code">
+                <code class="language-typescript">
+pokemon = getAllPokemon();
+
+for (i = 0; i < pokemon.length(); i++) {
+	pair = pokemon[i].split(" ");
+	processPokemon(pair[0], pair[1]);
+}
+
+println "That is all of them. Goodbye!";
+                </code>
+            </pre>
+            <p>In this code, we get all the Pokemon by calling our method we made. We then iterate over the list of strings, splitting each string into its name/id values, which then get passed into the "processPokemon" function. After looping, we say goodbye to the user since the program will then be finished executing.</p>
+            <p>Now, we want to implement the processPokemon function, and then we are done. Note that we will need to define this function before we begin the for loop; this is because the file is executed top to bottom, and so functions can only be called after they are defined. Additionally, this function takes in two parameters: the name of the pokemon, and the url endpoint to get its data. It should be noted that these parameters will be passed by reference since they are strings. In fact, all types will pass by reference with the exception of ints, floats, and bools. Here is the function implementation:</p>
+            <pre class="code">
+                <code class="language-typescript">
+fn processPokemon(name, url) {
+	id = `curl -s $url | jq -r '.id' | tr -d '\n'`[0];
+	imageFile = "$directory/$id.png";
+	wget -qO $imageFile "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
+	feh $imageFile;
+	if ((scan "Do you want to keep $name? (y/n): ") == "n") {
+		rm $imageFile;
+	}
+}
+                </code>
+            </pre>
+            <p>This function doesn't return anything, hence why there is no return statement. The return type would thus be "void" if we were specifying the return type, but we don't in the example. Again, let's walk through the code of this function:</p>
+            <ol>
+                <li>The first line, similar to how we did it in the "getAllPokemon" method, will make a curl request to the url passed in, and will pull the Pokemon's Pokedex id from the JSON object. The tr command is used here to trim off trailing whitespace from the id, but we could've also called the trim() function that's part of the string itself if we wanted to as well.</li>
+                <li>This line simply creates a new string representing the file path to the image file we are going to download. It uses string interpolation to insert the values of the variables into the string. This way of doing it only works with variables, but you can also do it with any expression by using syntax like "${directory}/${id}.png" or $"{directory}/{id}.png", where anything in-between the curly braces will be commander code that is run, so long as it is an expression that returns some value, such as an add or other math operation or a function call.</li>
+                <li>This line calls the wget command. The -q flag prevents it from printing out stuff (to avoid putting too much data in the console), and -O followed by the image file path to store the image in. The url points to an image of the Pokemon, and it knows which one to get since we use string interpolation to insert the id of the Pokemon into it. You may notice that the url is not part of the API, but despite that the url is contained in the JSON data for each Pokemon, so we could just as easily have gotten the url from there. We just explicitly wrote it here to make things a little more simple.</li>
+                <li>This line opens the image file and displays it to the user using the feh command.</li>
+                <li>This line is an if statement that asks the user if they want to keep the image. If they type in "n", then it will remove the image from their directory, otherwise it will leave it there.</li>
+            </ol>
+            <p>And that is it! You should be able to run it now and see it fully working. Feel free to practice more by adding more features to it.</p>
             <h1>3. Other Features</h1>
-            <p>In addition to running scripts, there are a couple other features that are part of the interpreter.</p>
+            <p>If you want a more in dpeth look at the different features that Commander has (the last program only scratches the surface!) then you will want to take a look at the specification documentation we have for the language contained in the Commander repo.</p>
+            <p>Also, in addition to running scripts, there are a couple other features that are part of the interpreter.</p>
             <p>First, you may run it as an interactive shell (or REPL) by running it by itself:
                 <pre class="command">
                     <code class="language-bash">
