@@ -26,6 +26,21 @@
             <a href="./tutorial.html" class="active">Tutorial</a>
         </div>
 
+        <div class="banner-mobile">
+            <a href="./" class="noHover"><img src="imgs/commander_logo_short.png" alt="The Commander
+                Logo" class="logo-mobile"></a>
+
+            <div class="drop-down">
+                <button class="drop-down-button" onclick="myFunction()">Menu</button>
+                <div id="dropdown" class="drop-down-content">
+                    <a href="./">About</a>
+                    <a href="./team.html">The Team</a>  
+                    <a href="./download.html">Download</a>  
+                    <a href="./tutorial.html">Tutorial</a>  
+                </div>
+            </div>
+        </div>
+
         <div class="content">
             <h1>1. Getting Started</h1>
             <p>First, download the executable for your system from <a href="download.html">downloads</a>. Alternatively, you may compile and build it yourself by downloading the source code and compiling/building it from scratch. For this tutorial, we will assume you are using a Bash shell running in Linux to run the interpreter.</p>
@@ -168,5 +183,26 @@ $ commander -t -f hello_world.cmdr
                 </pre>
             </p>
         </div>
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                    document.getElementById("dropdown").classList.toggle("show");
+                }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.drop-down-button')) {
+                    var dropdowns = document.getElementsByClassName("drop-down-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            } 
+        </script>
     </body>
 </html>

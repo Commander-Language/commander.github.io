@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/menu.css');
 
 * {
     font-family: "Nanum Gothic Coding", monospace; 
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 ol {
@@ -27,6 +29,16 @@ a {
 
 
 /*--------------- Banner ----------------- */
+.active {
+    background-color: #324455;
+    color: white;
+}
+@media only screen and (min-width: 921px) {
+.banner-mobile {
+    display: none;
+}
+
+
 .banner {
     display: flex;
     flex-direction: row;
@@ -54,10 +66,67 @@ a {
     margin: 10px 0;
     display: block;
 }
+}
 
-.active {
-    background-color: #324455;
-    color: white;
+@media only screen and (max-width: 920px) {
+.banner {
+    display: none;
+}
+.banner-mobile {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+.drop-down {
+    margin-right: 10px;
+}
+
+
+.logo-mobile {
+    filter: brightness(25%);
+    width: 70px;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+}
+.banner-mobile a{
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    padding: 15px 10px;
+}
+.drop-down button{
+    width: 100%;
+    display: 100%;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    padding: 20px 20px;
+}
+
+.drop-down-content {
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+    min-width: 120px;
+    right: 0;
+}
+
+.drop-down-content a{
+    width: 100%;
+}
+
+/*.drop-down:hover .drop-down-content {
+    display: block;
+}*/
+
+.banner-mobile a:hover:not(.active):not(.noHover) {
+    background-color: #98aabb;
+}
+.show {display: block;}
 }
 
 /*---------- Index.html Content --------- */

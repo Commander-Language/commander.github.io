@@ -22,6 +22,21 @@
             <a href="./tutorial.html">Tutorial</a>  
         </div>
 
+        <div class="banner-mobile">
+            <a href="./" class="noHover"><img src="imgs/commander_logo_short.png" alt="The Commander
+                Logo" class="logo-mobile"></a>
+
+            <div class="drop-down">
+                <button class="drop-down-button" onclick="myFunction()">Menu</button>
+                <div id="dropdown" class="drop-down-content">
+                    <a href="./">About</a>
+                    <a href="./team.html">The Team</a>  
+                    <a href="./download.html">Download</a>  
+                    <a href="./tutorial.html">Tutorial</a>  
+                </div>
+            </div>
+        </div>
+
         <h1 style="font-size: 64px; text-align: center;">The Commander Team</h1>
 
         <div class="content">
@@ -90,5 +105,27 @@
             </div>
 
         </div>
+
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                    document.getElementById("dropdown").classList.toggle("show");
+                }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.drop-down-button')) {
+                    var dropdowns = document.getElementsByClassName("drop-down-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            } 
+        </script>
     </body>
 </html>

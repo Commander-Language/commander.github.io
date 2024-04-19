@@ -22,6 +22,21 @@
             <a href="./tutorial.html">Tutorial</a>  
         </div>
 
+        <div class="banner-mobile">
+            <a href="./" class="noHover"><img src="imgs/commander_logo_short.png" alt="The Commander
+                Logo" class="logo-mobile"></a>
+
+            <div class="drop-down">
+                <button class="drop-down-button" onclick="myFunction()">Menu</button>
+                <div id="dropdown" class="drop-down-content">
+                    <a href="./">About</a>
+                    <a href="./team.html">The Team</a>  
+                    <a href="./download.html">Download</a>  
+                    <a href="./tutorial.html">Tutorial</a>  
+                </div>
+            </div>
+        </div>
+
         <div class="content">
             <h1>What is Commander?</h1>
             <img src="imgs/hello_from_commander.gif"><br>
@@ -45,10 +60,12 @@
             <br><br>
             </p> 
             <div style="display: flex; flex-direction: row; justify-content: center;">
-                <img src="imgs/if_commander.png" style="height: 250px; width: auto; padding-right: 40px;">
-                <img src="imgs/if_bash.png" style="height: 250px; width: auto; padding-left: 40px;">
+                <img src="imgs/if_commander.png" style="height: auto; width:
+                100%; padding-right: 40px; max-width: 400px;">
+                <img src="imgs/if_bash.png" style="height: auto; width: 100%;
+                padding-left: 40px; max-width: 400px;">
             </div> 
-            
+
             <p class="content-p">
             From line #1 you can already have problems in Bash... 
             </p>
@@ -57,11 +74,32 @@
             ...
             </p> 
             <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="imgs/pipeline1.png" style="height: auto; width: 800px;
-                padding-bottom: 40px;">
-                <img src="imgs/pipeline2.png" style="height: auto; width: 800px;
-                padding-top: 40px;">
+                <img src="imgs/pipeline1.png" style="height: auto; width: 100%;
+                padding-bottom: 40px; max-width: 800px;">
+                <img src="imgs/pipeline2.png" style="height: auto; width: 100%;
+                padding-top: 40px; max-width: 800px;">
             </div> 
         </div>
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                    document.getElementById("dropdown").classList.toggle("show");
+                }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.drop-down-button')) {
+                    var dropdowns = document.getElementsByClassName("drop-down-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            } 
+        </script>
     </body>
 </html>
