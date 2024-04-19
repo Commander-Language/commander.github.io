@@ -10,6 +10,11 @@
 
         <link rel="stylesheet" href="style.css">
         <title>Commander</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/xt256.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+        <script>hljs.highlightAll();</script>
     </head>
     <body>
 
@@ -24,20 +29,74 @@
 
         <div class="content">
             <h1>1. Getting Started</h1>
-            <p>First, download the executable for your system from <a href="download.html">downloads</a>. Alternatively, you may compile and build it yourself by downloading the source code and compiling/building it from scratch. For this tutorial, we will assume you are using Linux and a Bash shell to run the interpreter.</p>
+            <p>First, download the executable for your system from <a href="download.html">downloads</a>. Alternatively, you may compile and build it yourself by downloading the source code and compiling/building it from scratch. For this tutorial, we will assume you are using a Bash shell running in Linux to run the interpreter.</p>
             <p>The intended way to run commander is by writing the source code in a file and running that file. You do this by running the following command (or similar command):
-                <code>
-                   $ commander -f hello_world.cmdr
-                </code>
-                The file "hello_world".cmdr may look something like:
-                <code>
-                    println "Hello World!";
-                </code>
-                This is just your usual "hello world" program though, so it's not very interesting. The rest of the tutorial we will create a more interesting program that will show case some of the features of Commander, and hopefully give you an idea of it's general syntax and usage. We don't have any working syntax plugins at the moment, but if you want to have your code highlighted I would recommend setting your code editor to highlight either Rust or Javascript code since those languages have similar syntax to Commander.
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -f hello_world.cmdr
+                    </code>
+                </pre>
+                The file "hello_world.cmdr" may look something like:
+                <pre class="code">
+                    <code class="language-rust">
+println "Hello World!";
+                    </code>
+                </pre>
+                This is just your usual "hello world" program though, so it's not very interesting. The next section of the tutorial we will create a more interesting program that will show case some of the features of Commander, and hopefully give you an idea of its general syntax and usage. We don't have any working syntax plugins at the moment, but if you want to have your code highlighted we would recommend setting your code editor to highlight either Rust or Javascript code since those languages have similar syntax to Commander.
             </p>
+            <br>
             <h1>2. A Basic Program: PokeDiscover</h1>
             <p>Do you like Pokemon? Do you struggle to keep up with all the new ones? If so, you may like this program we are going to create! This program, which we call "PokeDiscover", utilizes a free <a href="https://pokeapi.co/">Pokemon API</a> online to download images and display them to the user. The idea is to go through all the Pokemon, and let the user discover any ones they didn't know about, and give them the option to save the image of the Pokemon to their computer so they can have a collection of all their favorites.</p>
             <p>To begin, </p>
+            <br>
+            <h1>3. Other Features</h1>
+            <p>In addition to running scripts, there are a couple other features that are part of the interpreter.</p>
+            <p>First, you may run it as an interactive shell (or REPL) by running it by itself:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander
+                    </code>
+                </pre>
+                Using the shell, you can run the code directly line by line. You can run the shell with any of the flags detailed below as well, such as the transpiler flags.
+            </p>
+            <p>Second, you may transpile commander scripts into either Bash or Powershell scripts. At the moment, these transpilers are not complete, but they are partially implemented. To run the bash transpiler, provide the -b flag, such as in the following command:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -b -f hello_world.cmdr
+                    </code>
+                </pre>
+                This will just print out the transpiled text though. If you want to save it to a file, you may provide the -o flag followed by the file name, such as follows:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -b -f hello_world.cmdr -o hello_world.sh
+                    </code>
+                </pre>
+                To transpile to powershell, use the --powershell flag:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander --powershell -f hello_world.cmdr
+                    </code>
+                </pre>
+            </p>
+            <p>Third, and this is more of a debugging feature, you may run the interpreter such that it only runs the lexer, parser, or type checker so you can see how it processes the code in each stage. To run just the lexer to see the list of tokens generated, provide the -l flag:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -l -f hello_world.cmdr
+                    </code>
+                </pre>
+                To run only the lexer and parser to see the sExpression tree generated, use the -p flag:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -p -f hello_world.cmdr
+                    </code>
+                </pre>
+                To run only the lexer, parser, and type checker to see the sExpression tree generated with all the assigned types, use the -t flag:
+                <pre class="command">
+                    <code class="language-bash">
+$ commander -t -f hello_world.cmdr
+                    </code>
+                </pre>
+            </p>
         </div>
     </body>
 </html>

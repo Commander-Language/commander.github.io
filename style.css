@@ -17,9 +17,6 @@ li {
 body {
     background-color: #324455;
     color: #cacaca;
-    margin: 0 auto;
-    font-family: "Times New Roman", Times, serif;
-    width: 100%;
 }
 
 h1 {
@@ -98,4 +95,9 @@ figure {
     text-indent: 0;
     margin: 0.5em;
     padding: 0.5em;
+}
+
+/*---------- coding ----------------*/
+.code {
+    tab-size: 4;
 }
