@@ -143,6 +143,7 @@ a {
 }
 
 /*-------- Bios------------*/
+
 .bio {
     display: flex;
     flex-direction: row;
@@ -162,6 +163,25 @@ figure {
     text-indent: 0;
     margin: 0.5em;
     padding: 0.5em;
+}
+
+@media only screen and (max-width: 560px) {
+    .bio{
+        flex-direction: column;
+    }
+
+    #preston-text{
+        order: 2; 
+    }
+    #preston-img{
+        order: 1; 
+    }
+    #eduardo-img{
+        order: 1; 
+    }
+    #eduardo-text{
+        order: 2; 
+    }
 }
 
 /*---------- coding ----------------*/
